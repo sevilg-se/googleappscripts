@@ -1,7 +1,6 @@
 function convertToPdf_(spreadsheetId) {
   var spreadsheet = spreadsheetId ? SpreadsheetApp.openById(spreadsheetId) : SpreadsheetApp.getActiveSpreadsheet();
   spreadsheetId = spreadsheetId ? spreadsheetId : spreadsheet.getId()  
-  var parents = DriveApp.getFileById(spreadsheetId).getParents();
   var url_base = "docs.google.com/spreadsheets/d/" + spreadsheet.getId() + "/"; 
 
   var url_export = 'export?exportFormat=pdf&format=pdf&id=' + spreadsheetId 
