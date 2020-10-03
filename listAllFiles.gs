@@ -9,11 +9,18 @@ function listFilesInsideOf_(parentFolderId) {
     addHeaders_(sheet);
     listGivenFiles_(parentFolder.getFiles(), sheet)
     listFilesInNestedFolders_(parentFolder, sheet);
+    sortSheet_();
     convertToPdf_(sheet.getId());
   } catch (e) {
     Logger.log(e.toString());
   }
 };
+
+function sortSheet_() {
+   var sheet = SpreadsheetApp.getActiveSheet();
+   var range = sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn());
+   range.sort({column: 3, ascending: false});
+}
 
 function addHeaders_(sheet) {
     sheet.clear();
@@ -38,10 +45,11 @@ function listGivenFiles_(files, sheet) {
 
 function writeToSheet_(file, sheet) {
    var hyperlink='=hyperlink("' + file.getUrl() + '","' + file.getName() + '")';
+   var formattedLastUpdated = Utilities.formatDate(file.getLastUpdated(), Session.getScriptTimeZone(), "dd/MM/yyyy hh:mm")
    var data = [ 
         hyperlink,
         file.getOwner().getName(),
-        file.getLastUpdated(),
+        formattedLastUpdated,
         file.getDescription()
       ];
    sheet.appendRow(data);
