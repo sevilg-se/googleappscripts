@@ -21,4 +21,5 @@ function convertToPdf_(spreadsheetId) {
   var response = UrlFetchApp.fetch(url_base + url_export, options);
   var blob = response.getBlob().setName(spreadsheet.getName() + '.pdf');
   folder.createFile(blob);
+  return blob;
 };
