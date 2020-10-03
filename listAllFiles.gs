@@ -9,7 +9,7 @@ function listFilesInsideOf_(parentFolderId) {
     addHeaders_(sheet);
     listGivenFiles_(parentFolder.getFiles(), sheet)
     listFilesInNestedFolders_(parentFolder, sheet);
-    convertToPdf_();
+    convertToPdf_(sheet.getId());
   } catch (e) {
     Logger.log(e.toString());
   }
